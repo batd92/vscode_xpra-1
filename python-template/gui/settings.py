@@ -1,2 +1,0 @@
-WINDOW_TITLE = "My Tkinter App"
-WINDOW_SIZE = "800x600"
