@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: vscode-service
+    name: code-server-service
+    namespace: {{ .Values.namespace }}
 spec:
-  ports:
-    - port: 80
-      targetPort: 8443
-  selector:
-    app: vscode
+    selector:
+        app: code-server
+    ports:
+        - protocol: TCP
+        port: 80
+        targetPort: 8080
