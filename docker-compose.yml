@@ -15,11 +15,12 @@ services:
             - APP_PORT=8443
             - APP_BIND_HOST=0.0.0.0
             - LAB_REPO=https://github.com/oxygen-batd/oxyLamportSend
-            # - EXTENSIONS=ms-python.python
+            - EXTENSIONS=MS-CEINTL.vscode-language-pack-ja
         user: "$UID:$GID"
+        # user: "root"
         volumes:
-            - ./workspace:/home/coder/workspace
-            - ./config:/home/coder/.config
-            - ./certs:/home/coder/.certs
+            - $PWD/workspace:/home/coder/workspace
+            - $PWD/config:/home/coder/.config
+            - $PWD/certs:/home/coder/.certs
         ports:
             - 8443:8443

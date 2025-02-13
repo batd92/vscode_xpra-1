@@ -24,8 +24,13 @@ cat > /home/coder/.local/share/code-server/User/settings.json << EOF
 }
 EOF
 
-chown coder /home/coder/workspace
-chown -R coder /home/coder/.local
+if [ "$(id -u)" -eq 0 ]; then
+    echo "Running as root, changing ownership..."
+    chown -R coder:coder /home/coder/workspace
+    chown -R coder:coder /home/coder/.local
+else
+    echo "Not running as root, skipping chown"
+fi
 
 if [ "${DOCKER_USER-}" ]; then
     echo "$DOCKER_USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/nopasswd > /dev/null
