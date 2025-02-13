@@ -1,0 +1,10 @@
+http:
+  routers:
+    vscode:
+      rule: "Host(`vscode.localhost`)"
+      service: "vscode"
+  services:
+    vscode:
+      loadBalancer:
+        servers:
+          - url: "http://vscode:8443"

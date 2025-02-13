@@ -1,0 +1,12 @@
+entryPoints:
+  web:
+    address: ":80"
+
+providers:
+  docker: {}
+  file:
+    filename: "/etc/traefik/dynamic_conf.yml"
+
+api:
+  insecure: true
+  dashboard: true

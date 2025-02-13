@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vscode-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vscode
+  template:
+    metadata:
+      labels:
+        app: vscode
+    spec:
+      containers:
+        - name: vscode
+          image: codercom/code-server:latest
+          ports:
+            - containerPort: 8443
+          volumeMounts:
+            - name: workspace-storage
+              mountPath: /home/coder/workspace
+      volumes:
+        - name: workspace-storage
+          persistentVolumeClaim:
+            claimName: vscode-pvc

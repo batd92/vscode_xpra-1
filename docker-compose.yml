@@ -1,8 +1,24 @@
-version: '3'
+version: "3.8"
+
 services:
+    traefik:
+        image: "traefik:v2.9"
+        command:
+            - "--api.insecure=true"
+            - "--providers.docker=true"
+            - "--entrypoints.web.address=:80"
+            - "--ping=true"
+            - "--providers.file.filename=/etc/traefik/dynamic_conf.yml"
+        ports:
+            - "80:80"
+            - "8080:8080"
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            - "./traefik/traefik.yml:/etc/traefik/traefik.yml"
+            - "./traefik/dynamic_conf.yml:/etc/traefik/dynamic_conf.yml"
     vscode:
         build:
-            context: .
+            context: ./vscode
             dockerfile: Dockerfile
             args:
                 USER: $USER
@@ -17,10 +33,16 @@ services:
             - LAB_REPO=https://github.com/oxygen-batd/oxyLamportSend
             - EXTENSIONS=MS-CEINTL.vscode-language-pack-ja
         user: "$UID:$GID"
-        # user: "root"
         volumes:
             - $PWD/workspace:/home/coder/workspace
             - $PWD/config:/home/coder/.config
             - $PWD/certs:/home/coder/.certs
         ports:
-            - 8443:8443
+            - "8443"
+        labels:
+            - "traefik.enable=true"
+            # using with Docker Swarm - "traefik.http.routers.vscode.rule=Host(`vscode-{{.Task.Slot}}.localhost`)"
+            - "traefik.http.routers.vscode.rule=Host(`vscode.localhost`)"
+            - "traefik.http.services.vscode.loadbalancer.server.port=8443"
+        deploy:
+            replicas: 3
