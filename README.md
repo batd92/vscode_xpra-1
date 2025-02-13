@@ -1,5 +1,5 @@
 # Project struct
-
+```
 root/
 │── docker-compose.yml
 │── traefik/
@@ -16,7 +16,7 @@ root/
 │   ├── service.yaml
 │   ├── ingress.yaml
 │── .env
-
+```
 
 #  Docker Compose
 
