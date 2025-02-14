@@ -15,19 +15,52 @@ spec:
     spec:
       containers:
         - name: vscode
-          image: codercom/code-server:latest
+          image: my-vscode-image
+          imagePullPolicy: Never
+          args:
+            - "--user=$USER"
+            - "--uid=$UID"
+            - "--gid=$GID"
+          env:
+            - name: USER
+              value: "coder"
+            - name: UID
+              value: "1000"
+            - name: GID
+              value: "1000"
+            - name: PASSWORD
+              value: "htplus"
+            - name: DOCKER_USER
+              value: "coder"
+            - name: HTTPS_ENABLED
+              value: "false"
+            - name: APP_PORT
+              value: "8443"
+            - name: APP_BIND_HOST
+              value: "0.0.0.0"
+            - name: LAB_REPO
+              value: "https://github.com/oxygen-batd/oxyLamportSend"
+            - name: EXTENSIONS
+              value: "MS-CEINTL.vscode-language-pack-ja"
           ports:
-            - containerPort: 8080
+            - containerPort: 8443
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
           volumeMounts:
-            - mountPath: /home/coder/project
-              name: vscode-data
-            - name: vscode-volume
-              mountPath: /home/coder/.config/code-server/config.yaml
-              subPath: config.yaml
+            - name: vscode-workspace
+              mountPath: /home/coder/workspace
+            - name: vscode-config
+              mountPath: /home/coder/.config
+            - name: vscode-certs
+              mountPath: /home/coder/.certs
       volumes:
-        - name: vscode-data
+        - name: vscode-workspace
           persistentVolumeClaim:
-            claimName: code-server-pvc
-        - name: vscode-volume
-          configMap:
-            name: vscode-config
+            claimName: vscode-workspace-pvc
+        - name: vscode-config
+          persistentVolumeClaim:
+            claimName: vscode-config-pvc
+        - name: vscode-certs
+          persistentVolumeClaim:
+            claimName: vscode-certs-pvc

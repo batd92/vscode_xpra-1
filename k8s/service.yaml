@@ -9,6 +9,6 @@ spec:
     app: vscode
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 8443
       nodePort: 30080
   sessionAffinity: ClientIP  # Giữ kết nối cố định với một pod
