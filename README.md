@@ -26,5 +26,15 @@ Run: ```docker-compose up -d```
 
 ## Kubernetes
 
-Run: ```kubectl apply -f k8s/```
-Check status: ```kubectl get pods,svc,ingress```
+### Run with Localhost:
+
+1. Build image
+
+```docker build -t my-vscode-image -f vscode/Dockerfile .```
+2. Load image into Kubernetes
+
+```docker tag my-vscode-image my-vscode-image:latest```
+3. Run: 
+```kubectl apply -f k8s/```
+
+4. Check status: ```kubectl get pods,svc,ingress```
