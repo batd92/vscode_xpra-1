@@ -1,26 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vscode-server
+  name: code-server-deployment
+  namespace: default
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: vscode
+      app: code-server
   template:
     metadata:
       labels:
-        app: vscode
+        app: code-server
     spec:
       containers:
-        - name: vscode
+        - name: code-server
           image: codercom/code-server:latest
           ports:
-            - containerPort: 8443
+            - containerPort: 8080
           volumeMounts:
-            - name: workspace-storage
-              mountPath: /home/coder/workspace
+            - mountPath: /home/coder/project
+              name: code-server-data
       volumes:
-        - name: workspace-storage
+        - name: code-server-data
           persistentVolumeClaim:
-            claimName: vscode-pvc
+            claimName: code-server-pvc

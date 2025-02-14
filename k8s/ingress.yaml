@@ -1,9 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vscode-ingress
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+  name: code-server-ingress
+  namespace: default
 spec:
   rules:
     - host: vscode.localhost
@@ -13,6 +12,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: vscode-service
+                name: code-server-service
                 port:
-                  number: 80
+                  number: 8080

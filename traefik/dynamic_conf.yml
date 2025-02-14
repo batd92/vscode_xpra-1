@@ -1,10 +1,15 @@
 http:
-  routers:
-    vscode:
-      rule: "Host(`vscode.localhost`)"
-      service: "vscode"
-  services:
-    vscode:
-      loadBalancer:
-        servers:
-          - url: "http://vscode:8443"
+    routers:
+        code-server-router:
+        rule: "Host(vscode.localhost`)"
+        entryPoints:
+            - websecure
+        tls:
+            certResolver: myresolver
+        service: code-server-service
+
+    services:
+        code-server-service:
+        loadBalancer:
+            servers:
+                - url: "http://vscode.localhost:8080"

@@ -1,10 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: vscode-service
+  name: code-server-service
+  namespace: default
 spec:
-  ports:
-    - port: 80
-      targetPort: 8443
   selector:
-    app: vscode
+    app: code-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
