@@ -4,10 +4,11 @@ metadata:
   name: code-server-service
   namespace: default
 spec:
+  type: NodePort
   selector:
     app: code-server
   ports:
-    - protocol: TCP
-      port: 80
+    - port: 80
       targetPort: 8080
-  type: LoadBalancer
+      nodePort: 30080
+  sessionAffinity: ClientIP  # Giữ kết nối cố định với một pod

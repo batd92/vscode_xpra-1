@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: code-server-config
+  namespace: default
+data:
+  config.yaml: |
+    bind-addr: 0.0.0.0:8080
+    auth: none
+    cert: false

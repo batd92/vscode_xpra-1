@@ -4,7 +4,7 @@ metadata:
   name: code-server-deployment
   namespace: default
 spec:
-  replicas: 2
+  replicas: 10
   selector:
     matchLabels:
       app: code-server
@@ -21,7 +21,13 @@ spec:
           volumeMounts:
             - mountPath: /home/coder/project
               name: code-server-data
+            - name: config-volume
+              mountPath: /home/coder/.config/code-server/config.yaml
+              subPath: config.yaml
       volumes:
         - name: code-server-data
           persistentVolumeClaim:
             claimName: code-server-pvc
+        - name: config-volume
+          configMap:
+            name: code-server-config

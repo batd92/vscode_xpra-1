@@ -3,15 +3,18 @@ kind: Ingress
 metadata:
   name: code-server-ingress
   namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
 spec:
+  ingressClassName: nginx
   rules:
-    - host: vscode.localhost
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: code-server-service
-                port:
-                  number: 8080
+  - host: vscode.localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: code-server-service
+            port:
+              number: 80
