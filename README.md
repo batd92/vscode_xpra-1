@@ -1,4 +1,5 @@
-# Project struct
+Run VS Code on any machine anywhere and access it in the browser.
+## Project struct
 ```
 root/
 │── docker-compose.yml
@@ -19,11 +20,11 @@ root/
 │── .env
 ```
 
-#  Docker Compose
+##  Docker Compose
 
 Run: ```docker-compose up -d```
 
-# Kubernetes
+## Kubernetes
 
 Run: ```kubectl apply -f k8s/```
 Check status: ```kubectl get pods,svc,ingress```
