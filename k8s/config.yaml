@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: code-server-config
+  name: vscode-config
   namespace: default
 data:
   config.yaml: |

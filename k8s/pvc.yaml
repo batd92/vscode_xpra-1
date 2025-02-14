@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: code-server-pvc
+  name: vscode-pvc
   namespace: default
 spec:
   accessModes:

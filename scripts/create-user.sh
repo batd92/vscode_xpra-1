@@ -27,7 +27,7 @@ kubectl apply -f - <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: code-server-deployment
+  name: vm-vscode
   namespace: $NAMESPACE
 spec:
   replicas: 1

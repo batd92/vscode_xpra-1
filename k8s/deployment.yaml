@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: code-server-deployment
+  name: vm-vscode
   namespace: default
 spec:
   replicas: 10
   selector:
     matchLabels:
-      app: code-server
+      app: vscode
   template:
     metadata:
       labels:
-        app: code-server
+        app: vscode
     spec:
       containers:
-        - name: code-server
+        - name: vscode
           image: codercom/code-server:latest
           ports:
             - containerPort: 8080
           volumeMounts:
             - mountPath: /home/coder/project
-              name: code-server-data
-            - name: config-volume
+              name: vscode-data
+            - name: vscode-volume
               mountPath: /home/coder/.config/code-server/config.yaml
               subPath: config.yaml
       volumes:
-        - name: code-server-data
+        - name: vscode-data
           persistentVolumeClaim:
             claimName: code-server-pvc
-        - name: config-volume
+        - name: vscode-volume
           configMap:
-            name: code-server-config
+            name: vscode-config
