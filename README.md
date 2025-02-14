@@ -7,13 +7,14 @@ root/
 │   ├── dynamic_conf.yml
 │── vscode/
 │   ├── Dockerfile
-│   ├── config/
-│   │   ├── settings.json
-│   │   ├── extensions.json
+│   ├── bin/
+│   │   ├── entrypoint.sh
 │   ├── workspace/
 │── k8s/
 │   ├── deployment.yaml
 │   ├── service.yaml
+│   ├── pvc.yaml
+│   ├── config.yaml
 │   ├── ingress.yaml
 │── .env
 ```
